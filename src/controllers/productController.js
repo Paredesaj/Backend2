@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
 // Ruta para crear un nuevo producto
 router.post('/', async (req, res) => {
   try {
-    const newProduct = new Product(req.body);  // Asegúrate de que req.body tenga los datos correctos
+    const newProduct = new Product(req.body);
     await newProduct.save();
     res.status(201).json(newProduct);
   } catch (error) {

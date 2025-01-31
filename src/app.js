@@ -6,9 +6,8 @@ import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import connectDB from './config/dbConfig.js';
 import productRouter from './routes/products.router.js';
- // Asegúrate de que esta ruta sea correcta
-import cartRouter from './routes/carts.router.js';  // Asegúrate de que esta línea esté incluida
-import sessionsRouter from './routes/sessions.router.js'; // Asegúrate de que esta línea esté incluida
+import cartRouter from './routes/carts.router.js';
+import sessionsRouter from './routes/sessions.router.js';
 
 // Configuración de entorno y conexión a la base de datos
 dotenv.config();

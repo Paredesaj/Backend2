@@ -34,7 +34,7 @@ export const addProductToCart = async (req, res) => {
     }
 
     // Supongamos que el producto se pasa en el cuerpo de la solicitud
-    const product = req.body.product; // Asegúrate de que el producto esté en el cuerpo
+    const product = req.body.product;
     cart.products.push(product);
     await cart.save();
 

@@ -2,7 +2,6 @@ import express from 'express';
 import passport from 'passport';
 import bcrypt from 'bcrypt';
 import User from '../dao/models/userModel.js';
-  // Asegúrate de tener tu modelo User
 import { generateToken } from '../utils/jwt.js';  // Función para generar el JWT
 import { roleMiddleware } from '../middleware/roleMiddleware.js';  // Middleware de autorización
 
