@@ -1,9 +1,10 @@
 import express from 'express';
 import passport from 'passport';
 import bcrypt from 'bcrypt';
-import User from '../models/userModel.js';  // Asegúrate de tener tu modelo User
+import User from '../dao/models/userModel.js';
+  // Asegúrate de tener tu modelo User
 import { generateToken } from '../utils/jwt.js';  // Función para generar el JWT
-import { authorize } from '../middleware/roleMiddleware.js';  // Middleware de autorización
+import { roleMiddleware } from '../middleware/roleMiddleware.js';  // Middleware de autorización
 
 const router = express.Router();
 
@@ -62,7 +63,7 @@ router.post('/login', async (req, res) => {
 });
 
 // Ruta protegida: Solo accesible para admin
-router.get('/admin', passport.authenticate('jwt', { session: false }), authorize(['admin']), (req, res) => {
+router.get('/admin', passport.authenticate('jwt', { session: false }), roleMiddleware(['admin']), (req, res) => {
   res.json({ message: 'Welcome, Admin!' });
 });
 

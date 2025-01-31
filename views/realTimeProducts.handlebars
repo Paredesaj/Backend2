@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos en Tiempo Real</title>
+    <link rel="stylesheet" href="/public/css/style.css">
+    <script defer src="/public/js/scripts.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Gestión de Productos - Tiempo Real</h1>
+    </header>
+    
+    <section>
+        <h2>Lista de Productos</h2>
+        <div id="product-list">
+            {{#each products}}
+                <div class="product-card" id="product-{{this.id}}">
+                    <img src="{{this.thumbnail}}" alt="{{this.title}}">
+                    <h3>{{this.title}}</h3>
+                    <p>Precio: ${{this.price}}</p>
+                    <p>Stock: {{this.stock}}</p>
+                    <button class="btn btn-delete" onclick="deleteProduct('{{this.id}}')">Eliminar</button>
+                </div>
+            {{else}}
+                <p>No hay productos disponibles.</p>
+            {{/each}}
+        </div>
+
+        <h3>Agregar Nuevo Producto</h3>
+        <form id="add-product-form">
+            <input type="text" id="title" placeholder="Título" required>
+            <input type="text" id="code" placeholder="Código" required>
+            <input type="number" id="price" placeholder="Precio" required>
+            <input type="number" id="stock" placeholder="Stock" required>
+            <input type="text" id="category" placeholder="Categoría" required>
+            <input type="text" id="thumbnail" placeholder="URL Imagen" required>
+            <button type="submit" class="btn btn-add">Agregar Producto</button>
+        </form>
+    </section>
+</body>
+</html>

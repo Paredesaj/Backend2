@@ -1,10 +1,18 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
-import passport from './middleware/authMiddleware.js';
-import sessionsRouter from './routes/sessions.router.js';
+import passport from 'passport';
 import connectDB from './config/dbConfig.js';
+import productRouter from './routes/products.router.js';
+ // Asegúrate de que esta ruta sea correcta
+import cartRouter from './routes/carts.router.js';  // Asegúrate de que esta línea esté incluida
+import sessionsRouter from './routes/sessions.router.js'; // Asegúrate de que esta línea esté incluida
+
+// Configuración de entorno y conexión a la base de datos
+dotenv.config();
+connectDB();
 
 const app = express();
 
@@ -15,29 +23,30 @@ app.use(cookieParser());
 
 // Configuración de sesiones persistentes con MongoDB
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'mySecret',  // Clave secreta para las sesiones
+  secret: process.env.SESSION_SECRET || 'mySecret', 
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URI,  // URI de la base de datos
-    ttl: 14 * 24 * 60 * 60,  // 14 días de persistencia
+    mongoUrl: process.env.MONGO_URI,
+    ttl: 14 * 24 * 60 * 60, // 14 días de expiración de sesión
   }),
   cookie: {
-    maxAge: 14 * 24 * 60 * 60 * 1000, // Expiración de la cookie: 14 días
-    httpOnly: true,  // Seguridad adicional para las cookies
+    maxAge: 14 * 24 * 60 * 60 * 1000, // 14 días de duración del cookie
+    httpOnly: true,
   },
 }));
 
 // Integración de Passport (JWT)
 app.use(passport.initialize());
-app.use(passport.session()); // Usamos la sesión de Passport con express-session
+app.use(passport.session());
 
-// Rutas
-app.use('/api/sessions', sessionsRouter);  // Rutas para la gestión de sesiones (registro, login, etc.)
+// Rutas de la API
+app.use('/api/sessions', sessionsRouter);  // Ruta para la gestión de sesiones
+app.use('/api/products', productRouter);   // Ruta para productos
+app.use('/api/carts', cartRouter);         // Ruta para carritos
 
-// Conectar a la base de datos y arrancar el servidor
-connectDB();
+// Arrancar el servidor
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Zapato Deportivo",
+    "code": "ZAP123",
+    "price": 50,
+    "stock": 10,
+    "category": "Deportes",
+    "thumbnails": ["image1.jpg"],
+    "status": true
+  },
+  {
+    "id": 2,
+    "title": "Botas de Cuero",
+    "code": "BOT123",
+    "price": 100,
+    "stock": 5,
+    "category": "Moda",
+    "thumbnails": ["image2.jpg"],
+    "status": true
+  }
+]
